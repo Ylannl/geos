@@ -233,6 +233,10 @@ target_link_libraries(geos PUBLIC geos_cxx_flags)
 add_subdirectory(include)
 add_subdirectory(src)
 
+if(NOT BUILD_SHARED_LIBS)
+  set_property(TARGET geos PROPERTY POSITION_INDEPENDENT_CODE ON)
+endif()
+
 if(BUILD_SHARED_LIBS)
   target_compile_definitions(geos
     PRIVATE $<IF:$<CXX_COMPILER_ID:MSVC>,GEOS_DLL_EXPORT,DLL_EXPORT>)
